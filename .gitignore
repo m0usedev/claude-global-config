@@ -1,0 +1,25 @@
+# Ignorar todo por defecto
+*
+
+# Permitir carpetas para poder descender en ellas
+!*/
+
+# Lo que sí quiero versionar
+!.gitignore
+!README.md
+!CLAUDE.md
+!settings.json
+!commands/**
+!agents/**
+!skills/**
+!output-styles/**
+!hooks/**
+!plugins/config.json
+
+# Y aun así, bloquear lo peligroso dentro de lo permitido
+.credentials.json
+settings.local.json
+**/.env
+**/*.key
+**/*.pem
+plugins/**
