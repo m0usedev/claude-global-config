@@ -15,6 +15,7 @@
 !output-styles/**
 !hooks/**
 !plugins/config.json
+!scripts-tools/**
 
 # Y aun así, bloquear lo peligroso dentro de lo permitido
 .credentials.json
@@ -23,3 +24,4 @@ settings.local.json
 **/*.key
 **/*.pem
 plugins/**
+scripts-tools/venv
