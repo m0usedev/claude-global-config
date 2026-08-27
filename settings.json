@@ -1,6 +1,5 @@
 {
   "permissions": {
-    "defaultMode": "default",
     "allow": [
       "Bash(npm run *)",
       "Bash(npm test)",
@@ -14,24 +13,6 @@
       "Bash(pip list)",
       "Bash(pip freeze)",
       "Bash(pytest *)"
-    ],
-    "ask": [
-      "Bash(git *)",
-      "Bash(npm install)",
-      "Bash(npm install *)",
-      "Bash(npm ci)",
-      "Bash(npm uninstall *)",
-      "Bash(npm install -g *)",
-      "Bash(npx *)",
-      "Bash(pip install *)",
-      "Bash(pip3 install *)",
-      "Bash(pip uninstall *)",
-      "Bash(pip3 uninstall *)",
-      "Bash(sudo *)",
-      "Bash(curl *)",
-      "Bash(wget *)",
-      "Bash(chmod *)",
-      "Bash(kill *)"
     ],
     "deny": [
       "Bash(git push *)",
@@ -66,6 +47,31 @@
       "Edit(~/.aws/**)",
       "Edit(~/.npmrc)",
       "Edit(~/.pypirc)"
-    ]
+    ],
+    "ask": [
+      "Bash(git *)",
+      "Bash(npm install)",
+      "Bash(npm install *)",
+      "Bash(npm ci)",
+      "Bash(npm uninstall *)",
+      "Bash(npm install -g *)",
+      "Bash(npx *)",
+      "Bash(pip install *)",
+      "Bash(pip3 install *)",
+      "Bash(pip uninstall *)",
+      "Bash(pip3 uninstall *)",
+      "Bash(sudo *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(chmod *)",
+      "Bash(kill *)",
+      "Edit(~/.claude/settings.json)",
+      "Write(~/.claude/settings.json)"
+    ],
+    "defaultMode": "default"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
   }
 }
