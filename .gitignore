@@ -16,6 +16,7 @@
 !hooks/**
 !plugins/config.json
 !scripts-tools/**
+!statusline.sh
 
 # Y aun así, bloquear lo peligroso dentro de lo permitido
 .credentials.json
