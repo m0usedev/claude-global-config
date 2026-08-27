@@ -25,3 +25,4 @@ settings.local.json
 **/*.pem
 plugins/**
 scripts-tools/venv
+scripts-tools/__pycache__
