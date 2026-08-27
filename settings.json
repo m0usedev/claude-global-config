@@ -70,16 +70,10 @@
     ],
     "defaultMode": "default"
   },
-  "model": "sonnet",
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh"
   },
   "language": "english",
-  "modelSettings": {
-    "claude-sonnet-5": {
-      "effortLevel": "low"
-    }
-  },
   "autoMemoryEnabled": false
 }
