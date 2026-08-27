@@ -23,4 +23,6 @@ La finalidad de los **scripts-tools** es el poder hacer acciones referentes a cl
 
 7. Recarga la configuracion con `source ~/.bashrc` o `source ~/.zshrc`.
 
-8. Ya puedes disfrutar de tus comandos de
+8. Ya puedes disfrutar de tus comandos.
+
+9. Prueba `hello_world.py`.
