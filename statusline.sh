@@ -1,11 +1,19 @@
 #!/bin/bash
 # Statusline para Claude Code:
-# modelo | thinking on/off | % contexto | % tokens (rate limit 5h) | tiempo hasta reset
+# modelo | thinking on/off | effort | % contexto | % tokens (rate limit 5h) | tiempo hasta reset
 
 input=$(cat)
 
 MODEL=$(echo "$input" | jq -r '.model.display_name')
 THINKING=$(echo "$input" | jq -r 'if .thinking.enabled == true then "🧠 ON" else "🧠 OFF" end')
+
+# Nivel de esfuerzo (low/medium/high/xhigh/max). Ausente si el modelo no lo soporta.
+EFFORT=$(echo "$input" | jq -r '.effort.level // empty')
+if [ -n "$EFFORT" ]; then
+    EFFORT_FMT="$EFFORT"
+else
+    EFFORT_FMT="--"
+fi
 
 CTX_PCT=$(echo "$input" | jq -r '.context_window.used_percentage // 0' | cut -d. -f1)
 
@@ -33,4 +41,4 @@ else
     RESET_FMT="--"
 fi
 
-echo "[$MODEL] | $THINKING | 📊 ctx: ${CTX_PCT}% | 🎯 tokens: ${RATE_PCT_FMT}% | ⏳ reset en: ${RESET_FMT}"
+echo "[$MODEL] | $THINKING | ⚡ effort: ${EFFORT_FMT} | 📊 ctx: ${CTX_PCT}% | 🎯 tokens: ${RATE_PCT_FMT}% | ⏳ reset en: ${RESET_FMT}"
