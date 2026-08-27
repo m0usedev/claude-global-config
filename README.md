@@ -18,39 +18,82 @@ ln -s ~/.claude-config/agents   ~/.claude/agents
 cp settings.example.json ~/.claude/settings.json  # y rellenar lo propio
 ```
 
+# Recomendaciones de uso
+
+## Hablar en ingles
+
+Los sistemas de tokenizacion de los textos que le mandamos la ia (tokenizer) esta entrenado sobre todo en ingles, lo que hace que sea mucho mas eficiente y barato tokenizar un texto en ingles que en español o chino.
+
+Recomendaciones para mejorar el ingles y practicar este proceso:
+
+1. Un corrector de ortografia de ingles antes de mandar los mensaje [zerogpt | grammar-checker](https://www.zerogpt.com/grammar-checker)
+2. Usar el traductor de google para encontrar las palabras que te faltan o ver si lo que pusiste tiene sentido [google translate](https://translate.google.com/?hl=es&sl=en&tl=es&op=translate)
+
+## Tareas concisas, marcadas y acotadas
+
+Cuando una tarea crece, tanto en numero de mensajes en la conversaicon como en el tamaño de la respuesta / actiones que tiene que realizar claude, la efectividad y la claridad de lo que tieen que hacer se diluye.
+
+En el caso de una **conversacion larga** claude tienede a tener mas en cuenta los primeros y ultimo mensaje, haciendo que se diluya lo del medio, sin mencionar el tamaño que ya este ocupando la conversacion en el contexto, empezando a decrecer la eficacia a partir del 50%.
+
+**Este mismo efecto de diluido sucede con textos que le mandes que sea muy largos** y o que impliquen mucha cantidad de informacion que el tenaga que revisar del proyecto para llevar acabo la tarea, como por ejemplo un refactor que implique leer 50 mil lineas de codigo. Lo mas apropiado para tener un buen control de lo que hacemos es usarle en casos donde le decimos y tenemos conocimientos de la gran mayoria de la tarea que queremos que haga, asi le dejaremos marcado todo el camino que tiene que hacer. No queremos invertir una hora haciendola, es mas facil 10 minutos en un buen pront para que la haga el.
+
+En el caso del **tamaño de una respuesta** si esta es muy larga y tiene que hacer muchas actiones tambien es posible que alucine y haga cosas que no estaban planeadas en un principio. Siguiendo con el ejemplo del refactor anterior que toque funciones que le dijiste que no tocase o que no tendria que haber tocado para lo que tenia que hacer.
+
+En conclusion:
+
+1. Un chat tiene que ser sobre una tarea especifica, no mas.
+2. Se claro y conciso en lo que tiene que realizar.
+3. Que la ejecucion que tiene que realizar siga la misma filosofia de simpleza y concision para tener un mayor control y eficiencia.
+
+# statusbar
+
+Tenego una statusbar personalizada `statusline.sh` que muestra el modelo que se esta usando, si tienel thinking mode activado, el contexto usado en el chat, los tokens usados y cuanto falta para que se reseteen.
+
+Esto esta configurado tambien en los settings.json
+
+```json
+"statusLine": {
+  "type": "command",
+  "command": "~/.claude/statusline.sh"
+}
+```
+
+Apareciendo algo como.
+
+```
+[Sonnet] | 🧠 ON | 📊 ctx: 34% | 🎯 tokens: 58% | ⏳ reset en: 2h 30m
+```
+
+En caso de que no funcione prueba prineor a daler al archivo permisos de ejecucion con `chmod +x ~/.claude/statusline.sh`.
+
+Mas info sobre la personalizacion en [statusline](https://code.claude.com/docs/en/statusline).
+
 ---
 
-## 🔒 Cómo está configurado el `.gitignore`
+# comandos para ocnfigurar el modelo
 
-El `.gitignore` funciona con **lista blanca**, no con lista negra. Es decir: la primera regla ignora absolutamente todo y a partir de ahí se van des-ignorando de forma explícita las rutas que sí quiero publicar.
-
-```gitignore
-*          # ignora todo
-!*/        # permite descender en las carpetas
-!commands/**   # y solo entonces se permite lo concreto
-```
-
-El motivo es simple: en una lista negra, cualquier archivo nuevo que Claude Code genere en el futuro (una carpeta de caché, un log, un formato que hoy no existe) entra al repo por defecto y me tengo que acordar de bloquearlo. Con lista blanca, lo nuevo queda fuera hasta que yo decida lo contrario. El fallo por omisión es no publicar, que es el lado seguro.
-
-Al final del archivo hay además un bloque de bloqueos explícitos (`.credentials.json`, `**/.env`, `*.key`, `*.pem`) que actúa como segunda barrera dentro de las rutas ya permitidas.
-
-### ⚠️ Antes de hacer un push desde otro equipo
-
-En una máquina nueva la carpeta puede tener archivos que aquí no existen. Comprobar siempre, en este orden:
-
-1. **Ver qué se va a subir realmente**, no lo que crees que se va a subir:
 ```bash
-   git add -A && git status --short
+alias claude-super-easy='MAX_THINKING_TOKENS=0 claude --permission-mode auto --model sonnet --effort medium'
+alias claude-easy='MAX_THINKING_TOKENS=0 claude --permission-mode plan --model sonnet --effort high'
+alias claude-normal='claude --permission-mode plan --model opus --effort medium'
+alias claude-hard='claude --permission-mode plan --model opus --effort high'
 ```
-   Si aparece algo que no reconoces, no lo commitees hasta saber qué es.
 
-2. **Revisar el `settings.json`**: que no se haya colado un bloque `env` con `ANTHROPIC_API_KEY`, un `apiKeyHelper`, ni configuración de servidores MCP con tokens. Los ejemplos van en `settings.example.json` con los valores vacíos.
-
-3. **Revisar el `CLAUDE.md` global**: es donde más fácil se acumulan rutas absolutas con el nombre de usuario, nombres de clientes, URLs internas o convenciones que no son públicas.
-
-4. **Escanear en busca de secretos** antes de publicar:
 ```bash
-   gitleaks detect --source . --verbose
+MAX_THINKING_TOKENS=0 claude --permission-mode auto --model sonnet --effort medium
+MAX_THINKING_TOKENS=0 claude --permission-mode plan --model sonnet --effort high
+claude --permission-mode plan --model opus --effort medium
+claude --permission-mode plan --model opus --effort high
 ```
 
-5. **Si algo sensible ya está commiteado**: borrarlo en un commit posterior **no sirve**, sigue en el historial y GitHub cachea los objetos. Hay que reescribir el historial con `git filter-repo` y, sobre todo, **rotar la credencial expuesta**. Dar por comprometido cualquier token que haya llegado a un commit, aunque el push nunca se completara.
+# cosas que meter en el claude.md
+
+- mirar una forma de que me recuerde que use el ingles antes de seguir tokenizando alguna conversacion.
+- que las respuestas que me de sean en ingles.
+- que me de una alerta si alguna habilidad o configuracion la tengo en otro idioma que no sea ingles
+
+- ver como manipular el modo thinking
+
+- poder ver en los datos debajo del chat: modelo, thinming on / off, porcentaje contexto (alerta al 50%), uso de tokens, tiempo faltante para el reset de los tokens
+
+- es muchisimo mas importante el primer pront que los siguientes (ver el dale las skils y datos necesraios para el contexto de latarea antes de empezarla)
