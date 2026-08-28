@@ -10,7 +10,7 @@ if os.path.exists(venv_python) and sys.executable != venv_python:
 MODES = {
     "super-easy": {
         "env": {"MAX_THINKING_TOKENS": "0"},
-        "args": ["claude", "--permission-mode", "auto", "--model", "sonnet", "--effort", "medium"],
+        "args": ["claude", "--permission-mode", "plan", "--model", "sonnet", "--effort", "medium"],
     },
     "easy": {
         "env": {"MAX_THINKING_TOKENS": "0"},
