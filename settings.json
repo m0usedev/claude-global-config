@@ -64,9 +64,7 @@
       "Bash(curl *)",
       "Bash(wget *)",
       "Bash(chmod *)",
-      "Bash(kill *)",
-      "Edit(~/.claude/settings.json)",
-      "Write(~/.claude/settings.json)"
+      "Bash(kill *)"
     ],
     "defaultMode": "default"
   },
