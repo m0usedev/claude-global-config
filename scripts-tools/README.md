@@ -14,15 +14,20 @@ La finalidad de los **scripts-tools** es el poder hacer acciones referentes a cl
 
   - Si haces tus modificaciones y necesitas referscar la lista de dependencis usa `pip freeze > requirements.txt`
 
-5. Ahora necesitamos darle a los scripts permisos de ejecucion con `chmod +x ~/.claude/scripts-tools/*.py`
-
-6. Agrega el siguiente path a tu `~/.bashrc` o `~/.zshrc`.
+5. Los scripts reales viven en `~/.claude/scripts-tools/tools`. Ejecuta el instalador para crear enlaces simbolicos hacia ellos en `~/.local/bin` (que ya deberia estar en tu `PATH`):
   ```bash
-  export PATH="$HOME/.claude/scripts-tools:$PATH"
+  python3 ~/.claude/scripts-tools/install.py
   ```
+  Esto le da permisos de ejecucion a cada script de `tools/` y crea un symlink por script (sin la extension `.py`) en `~/.local/bin`.
 
-7. Recarga la configuracion con `source ~/.bashrc` o `source ~/.zshrc`.
+6. Ya puedes disfrutar de tus comandos.
 
-8. Ya puedes disfrutar de tus comandos.
+7. Prueba `hello_world`.
 
-9. Prueba `hello_world.py`.
+## Desinstalar
+
+Para quitar los enlaces simbolicos creados por `install.py`:
+```bash
+python3 ~/.claude/scripts-tools/uninstall.py
+```
+Esto solo elimina los symlinks en `~/.local/bin` que apuntan a `~/.claude/scripts-tools/tools`; no toca los scripts originales.
