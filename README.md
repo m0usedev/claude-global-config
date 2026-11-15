@@ -70,6 +70,12 @@ Mas info sobre la personalizacion en [statusline](https://code.claude.com/docs/e
 
 ---
 
+# rules
+
+`rules/local-projects.md` es una regla global que se carga en todas las sesiones. Le explica a Claude como estan organizados mis repos en local (`~/projects/github.com/<org>/<a>/<b>/<c>`, la misma estructura que usan `ghc` y `venv` del Profile) para que, cuando una API llama a otra que tengo clonada, pueda seguir la peticion hasta el repo destino en vez de tratarla como caja negra. En los otros repos solo lee (nunca edita) y respeta su propio `.claude/` (CLAUDE.md y deny de settings.json). Para que lea sin pedir permiso, `settings.json` tiene `permissions.additionalDirectories` apuntando a `~/projects/github.com`.
+
+---
+
 # comandos para ocnfigurar el modelo
 
 ```bash

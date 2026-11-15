@@ -66,12 +66,20 @@
       "Bash(chmod *)",
       "Bash(kill *)"
     ],
-    "defaultMode": "default"
+    "defaultMode": "default",
+    "additionalDirectories": [
+      "/home/alvarosobrino/projects/github.com"
+    ]
   },
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh"
   },
-  "language": "english",
-  "autoMemoryEnabled": false
+  "language": "spanish",
+  "autoMemoryEnabled": false,
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "xhigh"
+    }
+  }
 }
